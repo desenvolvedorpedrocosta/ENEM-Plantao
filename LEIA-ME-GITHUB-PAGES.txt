@@ -1,0 +1,52 @@
+ENEM PLANTÃO 2026 — FRONT-END ESTÁTICO + API GOOGLE APPS SCRIPT
+
+ESTRUTURA
+- index.html: página inicial exigida pelo GitHub Pages (mesmo conteúdo de Index.html).
+- Index.html: cópia para manter compatibilidade com o projeto Apps Script atual.
+- config.js: URL do backend; é o único arquivo do front-end que você precisa editar para apontar a API.
+- manifest.webmanifest e sw.js: instalação PWA e cache dos arquivos estáticos.
+- Logo-ENEM-Plantao-2026.svg: logomarca usada no front-end.
+- Code.gs e appsscript.json: backend e manifesto do Google Apps Script.
+
+ETAPA A — PUBLICAR O BACKEND APPS SCRIPT
+1. Abra o projeto Apps Script que já está funcionando.
+2. Substitua o Code.gs pelo Code.gs deste pacote. Mantenha as chaves Gemini nas Script Properties; não as cole no GitHub.
+3. Em Configurações do projeto, habilite a exibição do arquivo de manifesto appsscript.json e substitua seu conteúdo pelo arquivo deste pacote (se já houver escopos adicionais necessários ao seu projeto, preserve-os).
+4. Salve e faça Implantar > Gerenciar implantações > Editar > Nova versão.
+5. Tipo: Aplicativo da Web. Executar como: Eu (proprietário). Acesso: Qualquer pessoa/Anyone, se a política da conta permitir.
+6. Copie a URL publicada terminada em /exec. Não use /dev.
+7. O backend passa a responder as chamadas JSONP no mesmo /exec. A página HTML do Apps Script continua disponível para teste, mas o endereço principal da equipe será o GitHub Pages.
+
+ETAPA B — CONFIGURAR O FRONT-END
+1. Abra config.js.
+2. Substitua COLE_AQUI_A_URL_EXEC_DO_APPS_SCRIPT pela URL /exec copiada na etapa A, mantendo as aspas.
+3. Não coloque chaves Gemini, PIN administrativo ou qualquer segredo em config.js ou em arquivos do GitHub.
+4. Publique TODOS os arquivos estáticos na raiz do repositório GitHub Pages: index.html, Index.html, config.js, manifest.webmanifest, sw.js e Logo-ENEM-Plantao-2026.svg.
+5. Ative GitHub Pages em Settings > Pages e abra a URL HTTPS publicada.
+6. O QR Code na tela de login é gerado dinamicamente com a URL atual do site. A imagem QR usa serviço externo QRServer; se a rede bloquear esse domínio, o botão Copiar link continua disponível.
+
+HISTÓRICO E EXCLUSÃO
+- O histórico rápido continua no localStorage do dispositivo.
+- Ao apagar, o front-end chama apiApagarHistoricoEscola(token). O backend apaga da planilha privada apenas as linhas de perguntas da escola autenticada (PERGUNTA_OK, PERGUNTA_SEM_FONTE e PERGUNTA_ERRO), zera o contador da escola e mantém um evento HISTORICO_APAGADO para auditoria.
+- Eventos de login e registros de outras escolas não são apagados.
+- A planilha privada NÃO deve ser compartilhada com as escolas. O Apps Script acessa-a como proprietário.
+
+PAINEL MESTRE / KILL SWITCH
+- O painel administrativo já existente foi mantido. O acesso discreto “Acesso restrito da administração” abre o login de administrador.
+- Dentro do painel, use Ativar/desativar plataforma e salve a mensagem de encerramento. O backend verifica o estado também nas chamadas de API, portanto não depende apenas de esconder a interface.
+- Troque o PIN administrativo inicial no Code.gs e execute redefinirPINAdministradorPeloCodigo() antes de publicar. Nunca envie esse PIN ao repositório público; idealmente, substitua o fluxo por configuração inicial privada/Script Properties.
+
+OBSERVAÇÕES TÉCNICAS IMPORTANTES
+- O front-end estático chama o Apps Script por JSONP (GET + callback), evitando o bloqueio CORS que costuma ocorrer com fetch entre GitHub Pages e Apps Script. A lista de operações expostas é fechada no roteador do Code.gs.
+- A URL /exec fica pública por necessidade do front-end estático; as operações protegidas exigem token de sessão. Os PINs escolares de dois dígitos são identificadores operacionais fracos, não autenticação forte.
+- O QR usa a URL corrente do GitHub Pages. A plataforma não abre a planilha ou o manual diretamente no celular.
+- O service worker armazena somente arquivos estáticos do front-end; consultas e autenticação exigem internet e backend ativo.
+- O Google Apps Script pode ser bloqueado por políticas do Google Workspace. Se “Qualquer pessoa” não estiver disponível, a implantação precisa de autorização do administrador do domínio.
+
+TESTE OBRIGATÓRIO ANTES DE DISTRIBUIR
+1. Abra o GitHub Pages e confira se a lista de escolas carrega.
+2. Entre com uma escola de teste.
+3. Faça uma pergunta ao manual e confirme página e resposta.
+4. Apague o histórico e confira no painel administrativo que as perguntas da escola foram removidas e o evento HISTORICO_APAGADO permaneceu.
+5. Entre como administrador, desative a plataforma, abra em janela anônima e confirme a mensagem de encerramento. Reative depois.
+6. Teste em Android/iPhone e em computador.

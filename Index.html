@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <!-- A metatag viewport é adicionada pelo doGet() via HtmlOutput.addMetaTag(). -->
+  <meta name="theme-color" content="#10243a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <title>ENEM Plantão 2026</title>
+  <style>
+    :root{--navy:#10243a;--navy2:#183751;--teal:#0f9b8e;--teal2:#087d75;--ink:#17283b;--muted:#64748b;--line:#dce5ec;--paper:#f4f7fa;--white:#fff;--gold:#e8ad4d;--red:#c94a4a;--green:#16866f;--shadow:0 18px 55px rgba(13,35,55,.12)}
+    *{box-sizing:border-box}html{min-height:100%;background:var(--paper)}body{margin:0;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh;background:radial-gradient(circle at 10% 0%,#e7f4f3 0,transparent 32%),linear-gradient(180deg,#f5f8fa,#eef3f7)}
+    button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}.hidden{display:none!important}.wrap{width:min(1180px,calc(100% - 32px));margin:0 auto}
+    .topbar{background:linear-gradient(115deg,var(--navy),#1c425c);color:#fff;padding:17px 0;box-shadow:0 7px 24px rgba(10,35,55,.13)}.top-inner{display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;align-items:center;gap:13px}.brand-mark{width:48px;height:48px;flex:0 0 48px;border-radius:15px;background:linear-gradient(145deg,#16b5a4,#087c78);display:grid;place-items:center;overflow:hidden;box-shadow:0 7px 18px #071d2b55}.brand-mark img,.login-logo img{width:100%;height:100%;object-fit:contain;padding:4px;background:#fff}.logo-drive-img[hidden],.logo-fallback[hidden]{display:none!important}.brand-mark svg,.login-logo svg{width:100%;height:100%;display:block}.login-brand{display:flex;align-items:center;gap:12px;margin-bottom:20px}.login-logo{width:56px;height:56px;flex:0 0 56px;border-radius:17px;background:linear-gradient(145deg,#16b5a4,#087c78);overflow:hidden;box-shadow:0 8px 20px #0f526022}.login-brand strong{display:block;color:#17354a;font-size:16px;letter-spacing:-.3px}.login-brand span{display:block;color:#7b8d9b;font-size:10px;margin-top:3px;letter-spacing:.45px}.brand-name{font-size:19px;font-weight:850;letter-spacing:-.5px}.brand-sub{font-size:11px;color:#c6d8e4;margin-top:2px;letter-spacing:.35px}.top-tag{border:1px solid #ffffff30;border-radius:999px;padding:7px 12px;color:#d9e7ef;font-size:11px;font-weight:700;white-space:nowrap}
+    .main{padding:34px 0 60px}.login-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;max-width:950px;margin:20px auto}.welcome{border-radius:24px;padding:34px;background:linear-gradient(145deg,#10243a,#20516a);color:#fff;position:relative;overflow:hidden;min-height:440px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow)}.welcome:after{content:"";position:absolute;width:300px;height:300px;border:1px solid #ffffff15;border-radius:50%;right:-115px;top:-120px;box-shadow:0 0 0 35px #ffffff08,0 0 0 75px #ffffff06}.eyebrow{color:#8ee2d6;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;font-weight:850}.welcome h1{font-size:35px;line-height:1.12;letter-spacing:-1px;margin:14px 0}.welcome p{color:#d0e0e9;line-height:1.65;font-size:14px;max-width:420px}.welcome-points{display:grid;gap:12px;margin-top:26px}.point{display:flex;gap:11px;align-items:center;color:#e3edf2;font-size:13px}.point-icon{width:29px;height:29px;border-radius:10px;background:#ffffff16;display:grid;place-items:center;color:#8ee2d6;font-weight:900}.welcome-foot{font-size:11px;color:#9fb8c7;margin-top:28px;line-height:1.6;z-index:1}
+    .panel{background:#fff;border:1px solid #e1e9ef;border-radius:24px;padding:30px;box-shadow:var(--shadow)}.panel h2{font-size:21px;letter-spacing:-.4px;margin:0 0 7px}.muted{color:var(--muted)}.small{font-size:12px;line-height:1.5}.field{margin-top:21px}.field label{display:block;font-size:12px;font-weight:800;color:#304458;margin-bottom:8px}.control{width:100%;border:1px solid #d5e0e8;border-radius:12px;padding:13px 14px;background:#fbfdfe;color:#1b3045;outline:none;transition:.15s}.control:focus{border-color:var(--teal);box-shadow:0 0 0 3px #0f9b8e18}.pin-control{letter-spacing:9px;font-size:21px;font-weight:800;text-align:center}.primary{border:0;border-radius:12px;background:linear-gradient(135deg,var(--teal),var(--teal2));color:#fff;font-weight:800;padding:14px 18px;box-shadow:0 8px 18px #0f9b8e25;transition:transform .15s,filter .15s}.primary:hover{filter:brightness(1.04);transform:translateY(-1px)}.block{width:100%;margin-top:22px}.subtle-btn{border:1px solid var(--line);background:#fff;color:#385066;border-radius:10px;padding:9px 12px;font-size:12px;font-weight:750}.subtle-btn:hover{background:#f5fafb}.notice{margin-top:17px;padding:12px 13px;border-radius:12px;background:#f0f8f7;border:1px solid #d9eeeb;color:#44636d;font-size:11px;line-height:1.55}.login-error{font-size:12px;color:#b33e3e;margin-top:12px;min-height:18px}.admin-shortcut{display:inline-flex;margin-top:22px;color:#8a9aaa;text-decoration:none;font-size:11px;border:0;background:none;padding:4px 0}.admin-shortcut:hover{color:#244c62;text-decoration:underline}
+    .status-closed{max-width:760px;margin:50px auto;background:#fff;border:1px solid #f0d8d8;border-radius:22px;padding:34px;box-shadow:var(--shadow);text-align:center}.status-closed .seal{width:55px;height:55px;background:#fff1f1;color:#b84a4a;border-radius:18px;display:grid;place-items:center;margin:0 auto 18px;font-size:24px}.status-closed h2{font-size:24px;margin:0 0 12px}.status-closed p{white-space:pre-wrap;color:#5f6e7e;line-height:1.65}
+    .app-layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:22px;align-items:start}.app-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;margin-bottom:20px}.app-heading h1{margin:0;font-size:25px;letter-spacing:-.65px}.school-chip{display:inline-flex;align-items:center;gap:7px;border-radius:999px;background:#e4f4f1;color:#126e66;padding:7px 11px;font-size:11px;font-weight:800;margin-top:9px}.live-dot{width:7px;height:7px;border-radius:50%;background:#16a085;box-shadow:0 0 0 4px #16a08518}.logout{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 11px;color:#5b6d7c;font-size:11px;font-weight:800;white-space:nowrap}
+    .question-card{padding:25px}.section-kicker{color:var(--teal2);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1.4px}.question-title{font-size:19px;margin:7px 0 6px;letter-spacing:-.35px}.question-hint{font-size:12px;color:var(--muted);line-height:1.5}.textarea{width:100%;min-height:122px;resize:vertical;border:1px solid #d9e3e9;border-radius:14px;background:#fbfdfe;padding:15px;outline:none;color:#20384b;line-height:1.55;margin-top:16px}.textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px #0f9b8e18}.composer-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:12px;flex-wrap:wrap}.composer-tools{display:flex;gap:8px;flex-wrap:wrap}.action-row{display:flex;align-items:center;gap:9px}.mic-btn{border:1px solid #d4e2e7;background:#f9fcfd;color:#2b5264;border-radius:11px;padding:10px 13px;font-size:12px;font-weight:800}.mic-btn.recording{background:#fff1f1;border-color:#efc9c9;color:#b43a3a;animation:pulse 1.2s infinite}.send-btn{padding:12px 18px;font-size:12px}.char-count{color:#92a0ad;font-size:10px}.privacy-note{margin-top:15px;font-size:10px;line-height:1.5;color:#8997a4}
+    .answer-card{margin-top:19px;padding:24px;display:none}.answer-card.show{display:block}.answer-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.answer-label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#168575;font-weight:900}.answer-status{font-size:10px;color:#718293}.answer-text{font-size:14px;line-height:1.75;color:#263c50;white-space:pre-wrap}.citation{margin-top:17px;border:1px solid #d7ebe8;background:#f1faf8;border-radius:13px;padding:13px}.citation-title{font-size:11px;color:#136e66;font-weight:900;margin-bottom:6px}.citation-pages{font-size:12px;color:#1b554f;font-weight:800}.citation-quote{margin-top:7px;color:#58716e;font-size:11px;line-height:1.5;font-style:italic}.answer-actions{display:flex;gap:8px;margin-top:15px;flex-wrap:wrap}.model-foot{font-size:10px;color:#96a2ac;margin-top:12px}
+    .side-card{padding:21px}.side-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.side-title h3{font-size:14px;margin:0}.history-count{background:#edf2f5;color:#65798a;padding:4px 8px;border-radius:20px;font-size:10px;font-weight:800}.history-empty{font-size:11px;line-height:1.55;color:#8292a0;background:#f7fafb;border-radius:12px;padding:14px}.history-list{display:grid;gap:9px}.history-item{width:100%;text-align:left;border:1px solid #e5edf1;background:#fff;border-radius:12px;padding:11px;transition:.15s}.history-item:hover{border-color:#9ed5cd;background:#f8fcfb}.history-q{font-size:11px;line-height:1.45;color:#30465a;font-weight:800;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.history-meta{font-size:9px;color:#8a9aa8;margin-top:7px;display:flex;justify-content:space-between;gap:8px}.history-clear{margin-top:12px;width:100%;font-size:10px}.quick-topics{margin-top:18px;border-top:1px solid #e9eff3;padding-top:16px}.quick-topics h4{font-size:11px;color:#657687;margin:0 0 10px}.topic{display:block;width:100%;text-align:left;padding:9px 10px;border:0;background:#f6f9fa;border-radius:9px;margin-top:7px;color:#486173;font-size:10px;font-weight:750}.topic:hover{background:#eaf5f3;color:#126e66}
+    .footer{text-align:center;color:#9aa7b2;font-size:10px;line-height:1.65;padding:24px 0 32px}.footer strong{color:#728392;font-weight:800}.footer a{color:#728392;text-decoration:none;font-weight:700}.footer a:hover{text-decoration:underline;color:#087d75}.modal-backdrop{position:fixed;inset:0;background:#0c1e2dcc;display:none;align-items:center;justify-content:center;padding:18px;z-index:20;backdrop-filter:blur(5px)}.modal-backdrop.open{display:flex}.modal{width:min(500px,100%);background:#fff;border-radius:20px;padding:25px;box-shadow:0 25px 80px #07182766;max-height:90vh;overflow:auto}.modal h3{margin:0;font-size:18px}.modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:9px}.close{width:32px;height:32px;border-radius:10px;border:0;background:#f0f4f6;color:#587080;font-size:18px}.admin-layout{display:grid;gap:16px}.admin-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:16px 0}.kpi{padding:13px;border-radius:12px;background:#f4f8fa;border:1px solid #e4edf1}.kpi strong{font-size:21px;display:block;color:#18364c}.kpi span{font-size:9px;color:#788a98;font-weight:800;text-transform:uppercase;letter-spacing:.5px}.admin-table-wrap{overflow:auto;border:1px solid #e5edf1;border-radius:12px}.admin-table{width:100%;border-collapse:collapse;min-width:550px;font-size:10px}.admin-table th{text-align:left;background:#f5f8fa;padding:10px;color:#627688}.admin-table td{padding:10px;border-top:1px solid #edf1f3;color:#43596b}.pill{display:inline-block;padding:4px 7px;border-radius:30px;font-size:9px;font-weight:900}.pill.on{background:#e2f5ee;color:#14785c}.pill.off{background:#f0f2f4;color:#7b8993}.admin-log{border:1px solid #e6edf1;border-radius:11px;padding:11px}.admin-log strong{font-size:10px;color:#324a5f}.admin-log p{font-size:10px;line-height:1.5;color:#6a7d8b;margin:6px 0}.admin-log small{font-size:9px;color:#9aa6b0}.toggle-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:14px;border-radius:13px;background:#f5f8fa;border:1px solid #e5edf1}.toggle-label strong{display:block;font-size:12px}.toggle-label span{display:block;font-size:10px;color:#758695;margin-top:3px}.switch{position:relative;width:46px;height:26px;flex:0 0 auto}.switch input{opacity:0;width:0;height:0}.slider{position:absolute;inset:0;background:#b9c6cf;border-radius:30px;transition:.2s}.slider:before{content:"";position:absolute;width:20px;height:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 4px #0002}.switch input:checked+.slider{background:#159b80}.switch input:checked+.slider:before{transform:translateX(20px)}
+    .toast{position:fixed;bottom:18px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:40;background:#132d41;color:#fff;padding:11px 15px;border-radius:11px;font-size:12px;box-shadow:0 10px 28px #0d263b44;transition:.25s;max-width:min(92vw,500px);text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}.loading{position:fixed;inset:0;background:#f5f8faeF;z-index:50;display:none;align-items:center;justify-content:center;flex-direction:column;gap:13px}.loading.show{display:flex}.spinner{width:42px;height:42px;border:4px solid #dcebe9;border-top-color:var(--teal);border-radius:50%;animation:spin .8s linear infinite}.loading strong{font-size:14px;color:#1a4054}.loading span{font-size:11px;color:#778a98}.error-banner{display:none;padding:12px 14px;background:#fff2f0;border:1px solid #f4d2cc;border-radius:12px;color:#9e4942;font-size:12px;margin-top:12px}.error-banner.show{display:block}
+    .qr-modal{text-align:center}.qr-modal #accessQr{display:block;width:240px;height:240px;max-width:70vw;margin:16px auto;border:1px solid var(--line);border-radius:12px;padding:8px;background:#fff}.qr-url{overflow-wrap:anywhere;margin:8px 0 14px}
+    @keyframes spin{to{transform:rotate(360deg)}}@keyframes pulse{50%{box-shadow:0 0 0 5px #e85b5b20}}
+    @media(max-width:850px){.app-layout{grid-template-columns:1fr}.side-card{order:2}.login-grid{grid-template-columns:1fr;max-width:570px}.welcome{min-height:280px;padding:27px}.welcome h1{font-size:30px}.welcome-points{grid-template-columns:1fr 1fr}.app-heading h1{font-size:22px}}
+    @media(max-width:560px){.wrap{width:min(100% - 22px,1180px)}.topbar{padding:13px 0}.brand-name{font-size:16px}.brand-mark{width:42px;height:42px;flex-basis:42px}.login-logo{width:50px;height:50px;flex-basis:50px}.top-tag{font-size:9px;padding:6px 8px}.main{padding-top:22px}.welcome{padding:23px;border-radius:20px}.welcome h1{font-size:28px}.welcome p{font-size:12px}.welcome-points{grid-template-columns:1fr}.panel{padding:21px;border-radius:19px}.login-grid{gap:14px}.app-heading{align-items:center}.app-heading h1{font-size:19px}.question-card{padding:19px}.composer-row{align-items:stretch}.composer-tools{width:100%}.action-row{width:100%;justify-content:space-between}.send-btn{flex:1}.admin-kpis{grid-template-columns:repeat(3,1fr)}.kpi{padding:10px 8px}.kpi strong{font-size:18px}.kpi span{font-size:8px}}
+  
+    /* Ajustes responsivos: ocupar bem a largura disponível sem cortar conteúdo. */
+    html,body{width:100%;max-width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%}
+    body{min-height:100vh;min-height:100svh;display:flex;flex-direction:column}
+    .topbar,.main,.footer{width:100%}
+    .main{flex:1 0 auto;padding-top:clamp(18px,3vw,34px);padding-bottom:clamp(24px,4vw,48px)}
+    .footer{margin-top:auto}
+    .wrap{width:min(1440px,calc(100% - clamp(24px,4vw,64px)))}
+    .app-layout{grid-template-columns:minmax(0,1fr) minmax(280px,340px);gap:clamp(14px,2vw,24px)}
+    .app-layout>div,.app-layout>aside{min-width:0}
+    .answer-text,.citation-quote,.question-hint,.privacy-note{overflow-wrap:anywhere}
+    .admin-table-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .admin-table{min-width:620px}
+    .modal-backdrop{padding:clamp(8px,2vw,18px)}
+    .modal{max-height:calc(100vh - 24px);max-height:calc(100svh - 24px);overflow:auto;overscroll-behavior:contain}
+    @media(max-width:1000px){
+      .app-layout{grid-template-columns:minmax(0,1fr)}
+      .side-card{order:2}
+      .login-grid{max-width:760px}
+      .welcome{min-height:360px}
+    }
+    @media(max-width:680px){
+      .wrap{width:calc(100% - 22px)}
+      .topbar{padding:11px 0}
+      .top-inner{gap:8px;align-items:center}
+      .brand{gap:9px;min-width:0}
+      .brand-mark{width:40px;height:40px;flex:0 0 40px;border-radius:12px}
+      .brand-name{font-size:15px;line-height:1.15}
+      .brand-sub{font-size:9px;line-height:1.25}
+      .top-tag{white-space:normal;text-align:center;max-width:112px;font-size:8px;line-height:1.25;padding:6px 7px}
+      .main{padding:14px 0 24px}
+      .login-grid{grid-template-columns:minmax(0,1fr);gap:12px;margin:10px auto;max-width:520px}
+      .welcome{min-height:0;padding:20px;border-radius:18px;gap:18px}
+      .welcome h1{font-size:clamp(25px,7vw,31px);margin:10px 0}
+      .welcome p{font-size:12px;line-height:1.55;margin:8px 0}
+      .welcome-points{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:14px}
+      .point{font-size:10px;line-height:1.35;align-items:flex-start}
+      .point-icon{width:25px;height:25px;min-width:25px;border-radius:8px;font-size:10px}
+      .welcome-foot{font-size:9px;margin-top:8px}
+      .panel{padding:17px;border-radius:18px}
+      .panel h2{font-size:19px}
+      .field{margin-top:16px}
+      .field label{font-size:11px}
+      .control{padding:12px;font-size:16px;min-height:46px}
+      .pin-control{font-size:21px;letter-spacing:9px}
+      .block{margin-top:16px;min-height:46px}
+      .notice{font-size:10px;margin-top:13px}
+      .admin-shortcut{margin-top:15px}
+      .status-closed{width:calc(100% - 22px);margin:20px auto;padding:22px 17px}
+      .status-closed h2{font-size:21px}
+      .app-heading{align-items:center;gap:10px;margin-bottom:13px}
+      .app-heading h1{font-size:clamp(18px,5vw,22px);line-height:1.2}
+      .school-chip{max-width:calc(100vw - 130px);font-size:9px;line-height:1.25;white-space:normal}
+      .logout{font-size:10px;padding:8px 9px;flex:0 0 auto}
+      .question-card{padding:17px}
+      .question-title{font-size:17px}
+      .question-hint{font-size:11px}
+      .textarea{min-height:132px;padding:12px;font-size:16px;line-height:1.5}
+      .composer-row{display:flex;flex-direction:column;align-items:stretch;gap:10px}
+      .composer-tools{width:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+      .mic-btn,.composer-tools .subtle-btn{min-height:42px;font-size:11px;padding:9px 7px}
+      .action-row{width:100%;display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px}
+      .send-btn{min-height:44px;padding:10px 8px;font-size:11px;white-space:normal}
+      .char-count{font-size:9px}
+      .privacy-note{font-size:9px;line-height:1.45}
+      .answer-card{padding:17px;margin-top:13px}
+      .answer-top{display:block;margin-bottom:10px}
+      .answer-status{margin-top:5px}
+      .answer-text{font-size:13px;line-height:1.65}
+      .citation{padding:11px}
+      .citation-pages{font-size:11px}
+      .citation-quote{font-size:10px}
+      .answer-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+      .answer-actions button{min-height:40px;font-size:10px;padding:8px 6px}
+      .side-card{padding:16px}
+      .history-list{grid-template-columns:minmax(0,1fr)}
+      .history-item{min-height:52px}
+      .quick-topics{margin-top:14px;padding-top:12px}
+      .topic{font-size:11px;padding:10px}
+      .footer{padding:18px 10px 22px;font-size:9px}
+      .modal-backdrop{align-items:flex-end;padding:7px}
+      .modal{width:100%;max-width:100%;max-height:calc(100svh - 14px);border-radius:18px 18px 12px 12px;padding:17px}
+      .admin-kpis{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+      .kpi{min-width:0;padding:9px 5px}
+      .kpi strong{font-size:17px}
+      .kpi span{font-size:8px;line-height:1.2}
+    }
+    @media(max-width:380px){
+      .wrap{width:calc(100% - 16px)}
+      .top-tag{max-width:92px}
+      .brand-name{font-size:14px}
+      .welcome-points{grid-template-columns:minmax(0,1fr)}
+      .app-heading h1{font-size:17px}
+      .logout{font-size:9px;padding:7px}
+      .action-row{grid-template-columns:1fr}
+      .char-count{text-align:right}
+    }
+    @media(min-width:1001px){
+      .side-card{position:sticky;top:16px;max-height:calc(100svh - 32px);overflow:auto}
+      .app-layout{align-items:start}
+    }
+
+    /* Correção pontual do enquadramento inicial e da adaptação entre larguras. */
+    html,body{width:100%;min-width:320px;max-width:100%;overflow-x:hidden}
+    body{min-height:100vh;min-height:100svh}
+    .main{display:flex;flex-direction:column;min-width:0}
+    #loginView{
+      display:grid;
+      width:100%;
+      max-width:1080px;
+      margin:clamp(10px,2.5vh,28px) auto;
+      grid-template-columns:minmax(0,1.04fr) minmax(340px,.96fr);
+      align-items:stretch;
+      gap:clamp(14px,2vw,24px);
+    }
+    #loginView>*{min-width:0;max-width:100%}
+    #loginView .welcome,#loginView .panel{min-width:0;width:100%;height:100%}
+    #loginView .welcome{min-height:0}
+    #loginView .panel{align-self:stretch}
+    .top-inner,.brand,.login-brand{min-width:0}
+    .brand-name,.brand-sub,.login-brand>div:last-child{min-width:0;overflow-wrap:anywhere}
+
+    @media(max-width:1000px){
+      #loginView{
+        width:min(100%,760px);
+        max-width:760px;
+        margin:12px auto;
+        grid-template-columns:minmax(0,1fr);
+        gap:14px;
+      }
+      #loginView .welcome{min-height:0}
+    }
+    @media(max-width:680px){
+      .main{padding-top:12px;padding-bottom:max(22px,env(safe-area-inset-bottom))}
+      #loginView{width:100%;max-width:520px;margin:8px auto;gap:12px}
+      #loginView .welcome,#loginView .panel{height:auto}
+      .top-inner{width:100%}
+      .brand{flex:1 1 auto}
+      .top-tag{flex:0 1 auto}
+    }
+    @media(max-width:380px){
+      #loginView{width:100%;gap:10px}
+      #loginView .welcome,#loginView .panel{padding:16px}
+    }
+
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap top-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-label="Logomarca ENEM Plantão">
+          <img class="logo-drive-img" data-src="./Logo-ENEM-Plantao-2026.svg" alt="Logomarca ENEM Plantão" hidden>
+          <svg class="logo-fallback" viewBox="0 0 100 100" role="img" aria-label="Símbolo ENEM Plantão" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" rx="22" fill="#0f9b8e"/>
+            <path d="M25 18h34l17 17v47H25z" fill="#fff" opacity=".98"/>
+            <path d="M59 18v18h17" fill="#cdeee9"/>
+            <path d="M35 48h28M35 59h22" stroke="#138b80" stroke-width="5" stroke-linecap="round"/>
+            <path d="m36 72 8 7 17-18" fill="none" stroke="#e7ad4d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div><div class="brand-name">ENEM Plantão <span style="color:#79dace">2026</span></div><div class="brand-sub">APOIO RÁPIDO ÀS EQUIPES DE APLICAÇÃO</div></div>
+      </div>
+      <div class="top-tag">FRANCISCO MORATO · SP</div>
+    </div>
+  </header>
+
+  <main class="main wrap">
+    <section id="loginView" class="login-grid">
+      <div class="welcome">
+        <div>
+          <div class="eyebrow">Consulta operacional</div>
+          <h1>Uma orientação rápida, na hora em que você precisa.</h1>
+          <p>Consulte o Manual do Coordenador do ENEM 2026 com respostas diretas e indicação da página de referência. Prioridade para os procedimentos do segundo dia.</p>
+          <div class="welcome-points">
+            <div class="point"><span class="point-icon">01</span> Procedimentos do 2º dia</div>
+            <div class="point"><span class="point-icon">02</span> Respostas com página do manual</div>
+            <div class="point"><span class="point-icon">03</span> Consulta por texto ou voz</div>
+            <div class="point"><span class="point-icon">04</span> Histórico neste dispositivo</div>
+          </div>
+        </div>
+        <div class="welcome-foot">Ferramenta auxiliar de consulta. Em caso de dúvida operacional, conflito de orientação ou situação não prevista, prevalece a orientação oficial da coordenação responsável.</div>
+      </div>
+
+      <div class="panel">
+        <div class="login-brand">
+          <div class="login-logo" aria-label="Logomarca ENEM Plantão">
+            <img class="logo-drive-img" data-src="./Logo-ENEM-Plantao-2026.svg" alt="Logomarca ENEM Plantão" hidden>
+            <svg class="logo-fallback" viewBox="0 0 100 100" role="img" aria-label="Símbolo ENEM Plantão" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100" height="100" rx="22" fill="#0f9b8e"/>
+              <path d="M25 18h34l17 17v47H25z" fill="#fff" opacity=".98"/>
+              <path d="M59 18v18h17" fill="#cdeee9"/>
+              <path d="M35 48h28M35 59h22" stroke="#138b80" stroke-width="5" stroke-linecap="round"/>
+              <path d="m36 72 8 7 17-18" fill="none" stroke="#e7ad4d" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div><strong>ENEM Plantão 2026</strong><span>SUPORTE RÁPIDO À EQUIPE DE APLICAÇÃO</span></div>
+        </div>
+        <div class="section-kicker">Acesso da equipe</div>
+        <h2 style="margin-top:8px">Identifique sua escola</h2>
+        <p class="small muted">Selecione a unidade e informe o PIN de dois dígitos correspondente.</p>
+        <div class="field">
+          <label for="schoolSelect">ESCOLA / LOCAL DE APLICAÇÃO</label>
+          <select id="schoolSelect" class="control"><option value="">Carregando escolas...</option></select>
+        </div>
+        <div class="field">
+          <label for="schoolPin">PIN DE ACESSO</label>
+          <input id="schoolPin" class="control pin-control" type="password" inputmode="numeric" maxlength="2" autocomplete="off" placeholder="••" aria-label="PIN de dois dígitos">
+        </div>
+        <button id="loginBtn" class="primary block">Entrar na plataforma <span aria-hidden="true">→</span></button>
+        <div id="loginError" class="login-error" role="alert"></div>
+        <div class="notice">O PIN corresponde ao número da escola na lista. Exemplo: escola 08 → PIN 08. Não compartilhe o acesso fora da equipe de aplicação.</div>
+        <button id="showQrBtn" class="subtle-btn block" type="button">▦ Compartilhar acesso por QR Code</button>
+        <button id="adminShortcut" class="admin-shortcut" type="button">Acesso restrito da administração</button>
+      </div>
+    </section>
+
+    <section id="closedView" class="status-closed hidden">
+      <div class="seal">✓</div>
+      <div class="section-kicker">Ciclo de atendimento finalizado</div>
+      <h2>Plataforma temporariamente encerrada</h2>
+      <p id="closedMessage"></p>
+      <button id="adminShortcutClosed" class="admin-shortcut" type="button">Acesso restrito da administração</button>
+    </section>
+
+    <section id="appView" class="hidden">
+      <div class="app-heading">
+        <div><div class="section-kicker">Central de consulta</div><h1>Como podemos orientar?</h1><div class="school-chip"><span class="live-dot"></span><span id="schoolNameLabel">Escola</span></div></div>
+        <button id="logoutBtn" class="logout">Sair da conta ↗</button>
+      </div>
+      <div class="app-layout">
+        <div>
+          <section class="panel question-card">
+            <div class="section-kicker">Pergunte ao manual</div>
+            <div class="question-title">Qual é a sua dúvida agora?</div>
+            <div class="question-hint">Escreva do jeito que você perguntaria ao coordenador. Seja específico sobre o momento da aplicação.</div>
+            <textarea id="questionInput" class="textarea" maxlength="1800" placeholder="Ex.: No segundo dia, como deve ser feito o procedimento com os cadernos de questões que sobraram na sala?" aria-label="Digite sua pergunta"></textarea>
+            <div class="composer-row">
+              <div class="composer-tools"><button id="micBtn" class="mic-btn" type="button">🎙 Falar pergunta</button><button id="clearQuestionBtn" class="subtle-btn" type="button">Limpar</button></div>
+              <div class="action-row"><span id="charCount" class="char-count">0 / 1800</span><button id="sendBtn" class="primary send-btn" type="button">Consultar manual →</button></div>
+            </div>
+            <div class="privacy-note">Não informe nome, CPF, número de inscrição ou dados pessoais de candidatos. O histórico completo fica neste dispositivo; pergunta e resumo também são registrados no painel administrativo privado. O navegador converte a fala em texto.</div>
+            <div id="appError" class="error-banner" role="alert"></div>
+          </section>
+
+          <section id="answerCard" class="panel answer-card" aria-live="polite">
+            <div class="answer-top"><div class="answer-label">Orientação encontrada</div><div id="answerDate" class="answer-status"></div></div>
+            <div id="answerText" class="answer-text"></div>
+            <div id="citationBox" class="citation hidden">
+              <div class="citation-title">FONTE NO MANUAL DO COORDENADOR — ENEM 2026</div>
+              <div id="citationPages" class="citation-pages"></div>
+              <div id="citationQuote" class="citation-quote"></div>
+              <a id="openManualLink" href="https://drive.google.com/file/d/1COyy-mdN22t4atD63HMWwaRTjxli2gbG/view?usp=sharing" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" title="A abertura do PDF exige permissão de leitura no Google Drive" style="display:inline-block;margin-top:10px;color:#087d75;font-size:11px;font-weight:850;text-decoration:none">Abrir o PDF original no Drive ↗</a>
+              <div class="small muted" style="font-size:10px;margin-top:5px">A consulta no ENEM Plantão usa o acesso da conta que publicou o aplicativo. Para abrir o PDF diretamente no celular, sua conta Google também precisa ter permissão de leitura no arquivo.</div>
+            </div>
+            <div id="answerObservation" class="small muted" style="margin-top:12px"></div>
+            <div class="answer-actions"><button id="copyAnswerBtn" class="subtle-btn" type="button">Copiar resposta</button><button id="speakAnswerBtn" class="subtle-btn" type="button">🔊 Ouvir resposta</button></div>
+            
+          </section>
+        </div>
+
+        <aside class="panel side-card">
+          <div class="side-title"><h3>Consultas recentes</h3><span id="historyCount" class="history-count">0</span></div>
+          <div id="historyEmpty" class="history-empty">As perguntas e respostas que você fizer aparecerão aqui, apenas neste dispositivo. Clique em uma consulta para reabri-la sem chamar a IA novamente.</div>
+          <div id="historyList" class="history-list"></div>
+          <button id="clearHistoryBtn" class="subtle-btn history-clear" type="button" disabled>Apagar histórico deste dispositivo</button>
+          <div class="small muted" style="font-size:9px;margin-top:6px">Apaga as consultas deste dispositivo e os registros correspondentes desta escola no banco privado.</div>
+          <div class="quick-topics">
+            <h4>ATALHOS DE CONSULTA</h4>
+            <button class="topic" data-question="Quais são os horários e os principais marcos de fechamento dos portões no segundo dia?">Horários e fechamento dos portões</button>
+            <button class="topic" data-question="No segundo dia, quais são os procedimentos com os cadernos de questões e materiais de prova?">Cadernos e materiais de prova</button>
+            <button class="topic" data-question="Qual é o procedimento previsto no manual para a folha de rascunho?">Folha de rascunho</button>
+            <button class="topic" data-question="Quais situações podem levar à eliminação do participante e qual procedimento a equipe deve seguir?">Eliminação e ocorrências</button>
+            <button class="topic" data-question="Quais são os procedimentos de conferência, fechamento e entrega dos malotes no segundo dia?">Malotes do segundo dia</button>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    <strong><span id="footerYear">2026</span> | Criado e Desenvolvido por Pedro Costa</strong><br>
+    <a href="mailto:desenvolvedorpedrocosta@gmail.com">desenvolvedorpedrocosta@gmail.com</a><br>
+    <span>ENEM Plantão 2026 · Apoio rápido às equipes de aplicação</span><br>
+    Ferramenta auxiliar, sem caráter de comunicação oficial do INEP.
+  </footer>
+
+  <div id="adminModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="adminModalTitle">
+    <div class="modal" id="adminLoginPanel">
+      <div class="modal-head"><h3 id="adminModalTitle">Acesso administrativo</h3><button class="close" id="closeAdminModal" type="button" aria-label="Fechar">×</button></div>
+      <p class="small muted">Área restrita à administração da plataforma.</p>
+      <div class="field"><label for="adminPin">PIN DO ADMINISTRADOR</label><input id="adminPin" class="control" type="password" autocomplete="off" placeholder="Digite o PIN administrativo"></div>
+      <div id="adminLoginError" class="login-error"></div>
+      <button id="adminLoginBtn" class="primary block" type="button">Acessar painel</button>
+    </div>
+    <div class="modal hidden" id="adminDashboardPanel" style="width:min(900px,100%)">
+      <div class="modal-head"><div><div class="section-kicker">Controle da plataforma</div><h3>Painel administrativo</h3></div><button class="close" id="closeAdminDashboard" type="button" aria-label="Fechar">×</button></div>
+      <div id="adminDashboardError" class="error-banner"></div>
+      <div class="admin-kpis">
+        <div class="kpi"><strong id="kpiActive">0</strong><span>Escolas ativas</span></div>
+        <div class="kpi"><strong id="kpiQuestions">0</strong><span>Perguntas registradas</span></div>
+        <div class="kpi"><strong id="kpiSchools">18</strong><span>Escolas cadastradas</span></div>
+      </div>
+      <div class="admin-layout">
+        <div class="toggle-row">
+          <div class="toggle-label"><strong>Ativar / desativar plataforma</strong><span id="platformStatusLabel">Plataforma ativa</span></div>
+          <label class="switch" aria-label="Ativar ou desativar plataforma"><input id="platformToggle" type="checkbox" checked><span class="slider"></span></label>
+        </div>
+        <div><label for="closureMessage" class="small" style="font-weight:800;display:block;margin-bottom:7px">MENSAGEM EXIBIDA QUANDO A PLATAFORMA ESTIVER ENCERRADA</label><textarea id="closureMessage" class="control" rows="3" style="resize:vertical"></textarea><button id="savePlatformBtn" class="primary" style="margin-top:10px;padding:11px 15px;font-size:11px" type="button">Salvar controle e mensagem</button></div>
+        <div><div class="side-title"><h3>Escolas acessando</h3><span id="adminUpdated" class="small muted"></span></div><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Escola</th><th>PIN</th><th>Status</th><th>Perguntas</th><th>Último acesso</th></tr></thead><tbody id="schoolStatsBody"></tbody></table></div><p class="small muted" style="margin:7px 0 0">Uma escola é considerada ativa quando envia sinal de presença nos últimos 130 segundos.</p></div>
+        <div><div class="side-title"><h3>Registro geral de eventos</h3><span class="small muted">Mais recentes primeiro</span></div><div id="adminLogs" class="admin-layout"></div></div>
+      </div>
+      <button id="adminLogoutBtn" class="subtle-btn" style="margin-top:17px" type="button">Encerrar sessão administrativa</button>
+    </div>
+  </div>
+
+
+  <div id="qrModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="qrTitle">
+    <div class="modal qr-modal"><div class="modal-head"><h3 id="qrTitle">Compartilhar acesso</h3><button class="close" id="closeQrModal" type="button" aria-label="Fechar">×</button></div>
+      <p class="small muted">Aponte a câmera do celular para o QR Code para abrir esta plataforma.</p><img id="accessQr" alt="QR Code do link de acesso" width="240" height="240"><div id="qrUrlText" class="small muted qr-url"></div>
+      <button id="copyAccessLink" class="primary block" type="button">Copiar link de acesso</button></div>
+  </div>
+  <div id="loading" class="loading"><div class="spinner"></div><strong id="loadingTitle">Consultando o manual...</strong><span id="loadingSubtitle">Localizando a orientação e a página de referência.</span></div>
+  <div id="toast" class="toast" role="status"></div>
+
+  <script src="./config.js"></script>
+  <script>
+    // GitHub Pages: informe abaixo a URL /exec da implantação do Apps Script.
+    const API_URL = (window.ENEM_API_URL || 'COLE_AQUI_A_URL_EXEC_DO_APPS_SCRIPT').trim();
+    // Ponte JSONP: permite chamar o Apps Script sem CORS e sem google.script.run.
+    (function instalarPonteAppsScript(){
+      let success = null, failure = null;
+      function proxy(ok, fail){
+        return new Proxy({}, { get(_target, prop){
+          if(prop === 'withSuccessHandler') return fn => proxy(fn, fail);
+          if(prop === 'withFailureHandler') return fn => proxy(ok, fn);
+          if(prop === 'withUserObject') return () => proxy(ok, fail);
+          if(typeof prop !== 'string') return undefined;
+          return (...args) => chamarApiJsonp(prop, args, ok, fail);
+        }});
+      }
+      function chamarApiJsonp(method,args,ok,fail){
+        if(!API_URL || API_URL.indexOf('/exec') < 0 || API_URL.indexOf('COLE_AQUI') >= 0){
+          const err = new Error('Configure API_URL no início do Index.html com a URL /exec do Apps Script.');
+          if(fail) fail(err); else console.error(err); return;
+        }
+        const callback = '__enemJsonp_' + Date.now() + '_' + Math.floor(Math.random()*1000000);
+        const script = document.createElement('script');
+        const cleanup = () => { try{delete window[callback];}catch(e){window[callback]=undefined;} script.remove(); };
+        const timer = setTimeout(() => { cleanup(); if(fail) fail(new Error('Tempo esgotado ao comunicar com o Apps Script.')); }, 45000);
+        window[callback] = data => { clearTimeout(timer); cleanup(); if(data && data.erroServidor){ if(fail) fail(new Error(data.mensagem || 'Erro no servidor.')); else console.error(data); } else if(ok) ok(data); };
+        script.onerror = () => { clearTimeout(timer); cleanup(); if(fail) fail(new Error('Não foi possível carregar a resposta do Apps Script. Confira a implantação e a URL /exec.')); };
+        const query = '?api=' + encodeURIComponent(method) + '&callback=' + encodeURIComponent(callback) + '&args=' + encodeURIComponent(JSON.stringify(args));
+        script.src = API_URL + (API_URL.indexOf('?') >= 0 ? '&' : '') + query.substring(1);
+        document.head.appendChild(script);
+      }
+      window.google = window.google || {}; window.google.script = window.google.script || {};
+      Object.defineProperty(window.google.script, 'run', { configurable:true, get(){return proxy(null,null);} });
+    })();
+    const HISTORY_LIMIT = 12;
+    const $ = (id) => document.getElementById(id);
+    let estado = { enabled: true, mensagemEncerramento: '', escolas: [] };
+    let sessionToken = '';
+    let adminToken = '';
+    let escolaAtual = '';
+    let pinAtual = '';
+    let historico = [];
+    let reconhecimento = null;
+    let pollingAdmin = null;
+    let pollingHeartbeat = null;
+    let lastAnswerText = '';
+
+    document.addEventListener('DOMContentLoaded', iniciar);
+
+    function iniciar() {
+      const yearEl = $('footerYear');
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+      bindEvents();
+      document.querySelectorAll('.logo-drive-img').forEach((img) => {
+        const fallback = img.nextElementSibling;
+        img.addEventListener('load', () => { img.hidden = false; if (fallback) fallback.hidden = true; });
+        img.addEventListener('error', () => { img.hidden = true; if (fallback) fallback.hidden = false; });
+        const src = img.dataset.src || '';
+        if (src) img.src = src;
+      });
+      google.script.run.withSuccessHandler((data) => {
+        estado = data || estado;
+        preencherEscolas(estado.escolas || []);
+        renderEstadoInicial();
+        tentarRestaurarSessao();
+      }).withFailureHandler((err) => {
+        showToast('Não foi possível carregar a plataforma. Atualize a página.');
+        console.error(err);
+      }).apiObterEstado();
+      configurarReconhecimentoVoz();
+      if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register('./sw.js').catch(err => console.warn('PWA offline indisponível:', err));
+    }
+
+    function abrirQrAcesso() {
+      const link = window.location.href.split('#')[0];
+      $('qrUrlText').textContent = link;
+      $('accessQr').src = 'https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=12&data=' + encodeURIComponent(link);
+      $('qrModal').classList.add('open');
+    }
+    async function copiarLinkAcesso() {
+      const link = window.location.href.split('#')[0];
+      try { await navigator.clipboard.writeText(link); showToast('Link de acesso copiado.'); }
+      catch(e) { const t=document.createElement('textarea'); t.value=link; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); showToast('Link de acesso copiado.'); }
+    }
+
+    function bindEvents() {
+      $('loginBtn').addEventListener('click', entrarEscola);
+      $('showQrBtn').addEventListener('click', abrirQrAcesso);
+      $('closeQrModal').addEventListener('click', () => $('qrModal').classList.remove('open'));
+      $('qrModal').addEventListener('click', e => { if(e.target === $('qrModal')) $('qrModal').classList.remove('open'); });
+      $('copyAccessLink').addEventListener('click', copiarLinkAcesso);
+      $('schoolPin').addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 2); });
+      $('schoolPin').addEventListener('keydown', (e) => { if (e.key === 'Enter') entrarEscola(); });
+      $('adminShortcut').addEventListener('click', abrirAdminModal);
+      $('adminShortcutClosed').addEventListener('click', abrirAdminModal);
+      $('closeAdminModal').addEventListener('click', fecharAdminModal);
+      $('closeAdminDashboard').addEventListener('click', fecharAdminModal);
+      $('adminLoginBtn').addEventListener('click', entrarAdmin);
+      $('adminPin').addEventListener('keydown', (e) => { if (e.key === 'Enter') entrarAdmin(); });
+      $('sendBtn').addEventListener('click', enviarPergunta);
+      $('questionInput').addEventListener('input', atualizarContador);
+      $('questionInput').addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) enviarPergunta(); });
+      $('clearQuestionBtn').addEventListener('click', () => { $('questionInput').value = ''; atualizarContador(); $('questionInput').focus(); });
+      $('micBtn').addEventListener('click', alternarMicrofone);
+      $('logoutBtn').addEventListener('click', sairEscola);
+      $('clearHistoryBtn').addEventListener('click', apagarHistorico);
+      $('copyAnswerBtn').addEventListener('click', copiarResposta);
+      $('speakAnswerBtn').addEventListener('click', ouvirResposta);
+      $('platformToggle').addEventListener('change', () => $('platformStatusLabel').textContent = $('platformToggle').checked ? 'Plataforma ficará ativa' : 'Plataforma será encerrada');
+      $('savePlatformBtn').addEventListener('click', salvarControleAdmin);
+      $('adminLogoutBtn').addEventListener('click', sairAdmin);
+      document.querySelectorAll('.topic').forEach(btn => btn.addEventListener('click', () => { $('questionInput').value = btn.dataset.question || ''; atualizarContador(); $('questionInput').focus(); }));
+      $('adminModal').addEventListener('click', (e) => { if (e.target === $('adminModal')) fecharAdminModal(); });
+    }
+
+    function preencherEscolas(escolas) {
+      const select = $('schoolSelect');
+      select.innerHTML = '<option value="">Selecione sua escola...</option>';
+      escolas.forEach((e) => {
+        const opt = document.createElement('option');
+        opt.value = e.pin;
+        opt.textContent = e.pin + ' — ' + e.nome;
+        select.appendChild(opt);
+      });
+    }
+
+    function renderEstadoInicial() {
+      if (!estado.enabled) mostrarEncerramento(estado.mensagemEncerramento);
+      else { $('loginView').classList.remove('hidden'); $('closedView').classList.add('hidden'); }
+    }
+
+    function mostrarEncerramento(message) {
+      pararHeartbeat();
+      $('loginView').classList.add('hidden');
+      $('appView').classList.add('hidden');
+      $('closedView').classList.remove('hidden');
+      $('closedMessage').textContent = message || 'Este ciclo de atendimento foi encerrado.\n\nCoordenação Local de Aplicação — Francisco Morato/SP';
+    }
+
+    function tentarRestaurarSessao() {
+      const saved = localStorage.getItem('enemPlantao:session');
+      if (!saved || !estado.enabled) return;
+      try {
+        const obj = JSON.parse(saved);
+        if (!obj.token || !obj.pin) return;
+        google.script.run.withSuccessHandler((res) => {
+          if (res && res.ok) {
+            sessionToken = obj.token; pinAtual = obj.pin; escolaAtual = res.escola;
+            mostrarApp();
+          } else if (res && res.encerrada) mostrarEncerramento(res.mensagem);
+          else localStorage.removeItem('enemPlantao:session');
+        }).withFailureHandler(() => localStorage.removeItem('enemPlantao:session')).apiValidarSessao(obj.token);
+      } catch (e) { localStorage.removeItem('enemPlantao:session'); }
+    }
+
+    function entrarEscola() {
+      const pin = $('schoolSelect').value;
+      const digitado = $('schoolPin').value;
+      $('loginError').textContent = '';
+      if (!pin) { $('loginError').textContent = 'Selecione a escola antes de entrar.'; return; }
+      if (!/^\d{2}$/.test(digitado)) { $('loginError').textContent = 'Digite o PIN de dois dígitos.'; return; }
+      setLoading(true, 'Validando acesso...', 'Conferindo a escola e liberando a consulta.');
+      google.script.run.withSuccessHandler((res) => {
+        setLoading(false);
+        if (!res || !res.ok) {
+          if (res && res.encerrada) mostrarEncerramento(res.mensagem);
+          else $('loginError').textContent = (res && res.mensagem) || 'Não foi possível liberar o acesso.';
+          return;
+        }
+        sessionToken = res.token; pinAtual = res.pin; escolaAtual = res.escola;
+        localStorage.setItem('enemPlantao:session', JSON.stringify({ token: sessionToken, pin: pinAtual }));
+        mostrarApp();
+      }).withFailureHandler((err) => { setLoading(false); $('loginError').textContent = 'Falha de comunicação. Tente novamente.'; console.error(err); }).apiLoginEscola(pin, digitado);
+    }
+
+    function mostrarApp() {
+      $('loginView').classList.add('hidden'); $('closedView').classList.add('hidden'); $('appView').classList.remove('hidden');
+      $('schoolNameLabel').textContent = escolaAtual;
+      carregarHistorico(); renderHistorico();
+      $('questionInput').focus();
+      iniciarHeartbeat();
+    }
+
+    function sairEscola() {
+      const old = sessionToken;
+      sessionToken = ''; escolaAtual = ''; pinAtual = '';
+      localStorage.removeItem('enemPlantao:session');
+      pararHeartbeat();
+      google.script.run.apiLogout(old);
+      $('appView').classList.add('hidden'); $('loginView').classList.remove('hidden'); $('schoolPin').value = '';
+      $('answerCard').classList.remove('show');
+    }
+
+    function iniciarHeartbeat() {
+      pararHeartbeat();
+      pollingHeartbeat = setInterval(() => {
+        if (!sessionToken) return;
+        google.script.run.withSuccessHandler((res) => {
+          if (res && res.encerrada) mostrarEncerramento(res.mensagem);
+          else if (res && !res.ok) { localStorage.removeItem('enemPlantao:session'); showToast('Sua sessão expirou. Entre novamente.'); sairEscola(); }
+        }).apiHeartbeat(sessionToken);
+      }, 60000);
+    }
+    function pararHeartbeat() { if (pollingHeartbeat) clearInterval(pollingHeartbeat); pollingHeartbeat = null; }
+
+    function enviarPergunta() {
+      const pergunta = $('questionInput').value.trim();
+      $('appError').classList.remove('show');
+      if (!pergunta) { mostrarErroApp('Digite ou dite sua pergunta antes de consultar.'); return; }
+      if (!sessionToken) { mostrarErroApp('Sua sessão não está ativa. Entre novamente.'); return; }
+      setLoading(true, 'Consultando o manual...', 'O PDF está sendo analisado para localizar a orientação e sua página.');
+      $('sendBtn').disabled = true;
+      google.script.run.withSuccessHandler((res) => {
+        setLoading(false); $('sendBtn').disabled = false;
+        if (!res || !res.ok) {
+          if (res && res.encerrada) mostrarEncerramento(res.mensagem);
+          else if (res && res.sessaoExpirada) { showToast(res.mensagem); sairEscola(); }
+          else mostrarErroApp((res && res.mensagem) || 'Não foi possível consultar o manual.');
+          return;
+        }
+        mostrarResposta(res, pergunta);
+        $('questionInput').value = ''; atualizarContador();
+      }).withFailureHandler((err) => {
+        setLoading(false);
+        $('sendBtn').disabled = false;
+        const detalhe = (err && err.message) ? String(err.message) : 'O Apps Script encerrou a chamada sem devolver detalhes.';
+        console.error('Falha em apiPerguntar:', err);
+        mostrarErroApp('O servidor não concluiu a consulta. Detalhe: ' + detalhe.substring(0, 420) + ' Se o problema continuar, abra Apps Script > Execuções para consultar o erro completo.');
+      }).apiPerguntar(sessionToken, pergunta);
+    }
+
+    function mostrarResposta(res, pergunta) {
+      $('answerCard').classList.add('show');
+      $('answerDate').textContent = res.data || '';
+      $('answerText').textContent = res.resposta || '';
+      lastAnswerText = (res.resposta || '') + (res.paginasPdf && res.paginasPdf.length ? '\n\nFonte: Manual do Coordenador do ENEM 2026 — PDF, página(s) ' + res.paginasPdf.join(', ') + '.' : '');
+      if (res.encontrado && res.paginasPdf && res.paginasPdf.length) {
+        $('citationBox').classList.remove('hidden');
+        $('citationPages').textContent = 'Página(s) ' + res.paginasPdf.join(', ') + ' do PDF' + (res.paginaImpressa ? ' · Numeração impressa: ' + res.paginaImpressa : '');
+        $('citationQuote').textContent = '“' + (res.comprovacao || '') + '”';
+        $('openManualLink').href = urlManual(res.paginasPdf[0]);
+        $('answerCard').querySelector('.answer-label').textContent = 'Orientação localizada no manual';
+      } else {
+        $('citationBox').classList.add('hidden');
+        $('answerCard').querySelector('.answer-label').textContent = 'Não foi possível confirmar uma página';
+      }
+      $('answerObservation').textContent = res.observacao || (res.encontrado ? 'Confira a orientação com o coordenador em caso de ocorrência não prevista.' : 'Não utilize esta resposta como regra oficial sem confirmação da coordenação.');
+      salvarNoHistorico({ question: pergunta, answer: res.resposta || '', pages: res.paginasPdf || [], printed: res.paginaImpressa || '', quote: res.comprovacao || '', observation: res.observacao || '', found: !!res.encontrado, date: res.data || new Date().toLocaleString('pt-BR') });
+      $('answerCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function carregarHistorico() {
+      const key = historyKey();
+      try { historico = JSON.parse(localStorage.getItem(key) || '[]'); if (!Array.isArray(historico)) historico = []; }
+      catch (e) { historico = []; }
+    }
+    function historyKey() { return 'enemPlantao:history:' + (pinAtual || 'geral'); }
+    function urlManual(page) {
+      const base = 'https://drive.google.com/file/d/1COyy-mdN22t4atD63HMWwaRTjxli2gbG/view?usp=sharing';
+      return page ? base + '#page=' + encodeURIComponent(page) : base;
+    }
+    function salvarNoHistorico(item) {
+      historico.unshift(item); historico = historico.slice(0, HISTORY_LIMIT);
+      try { localStorage.setItem(historyKey(), JSON.stringify(historico)); } catch (e) { showToast('Não foi possível guardar o histórico local.'); }
+      renderHistorico();
+    }
+    function renderHistorico() {
+      const list = $('historyList'); list.innerHTML = '';
+      $('historyCount').textContent = String(historico.length);
+      $('historyEmpty').classList.toggle('hidden', historico.length > 0);
+      $('clearHistoryBtn').disabled = historico.length === 0;
+      $('clearHistoryBtn').title = historico.length === 0 ? 'Ainda não há consultas salvas neste dispositivo.' : 'Apagar todas as consultas locais desta escola.';
+      historico.forEach((item, index) => {
+        const btn = document.createElement('button'); btn.className = 'history-item'; btn.type = 'button';
+        const q = document.createElement('div'); q.className = 'history-q'; q.textContent = item.question || 'Consulta';
+        const meta = document.createElement('div'); meta.className = 'history-meta';
+        const d = document.createElement('span'); d.textContent = item.date || '';
+        const p = document.createElement('span'); p.textContent = item.pages && item.pages.length ? 'PDF p. ' + item.pages.join(', ') : 'Sem página';
+        meta.append(d, p); btn.append(q, meta); btn.addEventListener('click', () => abrirHistorico(index)); list.appendChild(btn);
+      });
+    }
+    function abrirHistorico(index) {
+      const item = historico[index]; if (!item) return;
+      $('answerCard').classList.add('show'); $('answerDate').textContent = item.date || '';
+      $('answerText').textContent = item.answer || '';
+      $('answerCard').querySelector('.answer-label').textContent = item.found ? 'Consulta recuperada do histórico' : 'Consulta anterior sem página confirmada';
+      if (item.found && item.pages && item.pages.length) {
+        $('citationBox').classList.remove('hidden');
+        $('citationPages').textContent = 'Página(s) ' + item.pages.join(', ') + ' do PDF' + (item.printed ? ' · Numeração impressa: ' + item.printed : '');
+        $('citationQuote').textContent = item.quote ? '“' + item.quote + '”' : '';
+        $('openManualLink').href = urlManual(item.pages[0]);
+      } else $('citationBox').classList.add('hidden');
+      $('answerObservation').textContent = item.observation || '';
+      lastAnswerText = (item.answer || '') + (item.pages && item.pages.length ? '\n\nFonte: Manual do Coordenador do ENEM 2026 — PDF, página(s) ' + item.pages.join(', ') + '.' : '');
+      $('answerCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    function apagarHistorico() {
+      if (!confirm('Apagar as consultas desta escola também dos registros privados do sistema? Esta ação não pode ser desfeita.')) return;
+      if (!sessionToken) { showToast('Entre novamente para sincronizar a exclusão.'); return; }
+      $('clearHistoryBtn').disabled = true;
+      google.script.run.withSuccessHandler((res) => {
+        $('clearHistoryBtn').disabled = false;
+        if (!res || !res.ok) { showToast((res && res.mensagem) || 'Não foi possível apagar o histórico no servidor.'); return; }
+        historico = []; localStorage.removeItem(historyKey());
+        $('answerCard').classList.remove('show'); $('questionInput').value = ''; atualizarContador(); lastAnswerText = '';
+        renderHistorico(); showToast(res.mensagem || 'Histórico apagado e sincronizado com o servidor.');
+      }).withFailureHandler((err) => { $('clearHistoryBtn').disabled = false; showToast('Falha ao sincronizar exclusão: ' + (err && err.message ? err.message : 'erro de comunicação')); }).apiApagarHistoricoEscola(sessionToken);
+    }
+
+    function configurarReconhecimentoVoz() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) { $('micBtn').disabled = true; $('micBtn').title = 'Reconhecimento de voz não disponível neste navegador.'; $('micBtn').textContent = '🎙 Voz indisponível'; return; }
+      reconhecimento = new SpeechRecognition(); reconhecimento.lang = 'pt-BR'; reconhecimento.continuous = false; reconhecimento.interimResults = false; reconhecimento.maxAlternatives = 1;
+      reconhecimento.onstart = () => { $('micBtn').classList.add('recording'); $('micBtn').textContent = '● Ouvindo...'; };
+      reconhecimento.onend = () => { $('micBtn').classList.remove('recording'); $('micBtn').textContent = '🎙 Falar pergunta'; };
+      reconhecimento.onerror = (event) => { showToast(event.error === 'not-allowed' ? 'Permita o uso do microfone no navegador.' : 'Não foi possível reconhecer a fala. Tente novamente.'); };
+      reconhecimento.onresult = (event) => {
+        const spoken = event.results[0][0].transcript || '';
+        const box = $('questionInput'); box.value = (box.value.trim() ? box.value.trim() + ' ' : '') + spoken; atualizarContador(); box.focus();
+      };
+    }
+    function alternarMicrofone() {
+      if (!reconhecimento) return;
+      try { if ($('micBtn').classList.contains('recording')) reconhecimento.stop(); else reconhecimento.start(); }
+      catch (e) { showToast('O microfone já está em uso ou não pôde ser iniciado.'); }
+    }
+
+    function copiarResposta() {
+      if (!lastAnswerText) return;
+      const done = () => showToast('Resposta copiada.');
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(lastAnswerText).then(done).catch(() => copiarFallback(lastAnswerText, done));
+      else copiarFallback(lastAnswerText, done);
+    }
+    function copiarFallback(text, done) { const t = document.createElement('textarea'); t.value = text; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); done(); } catch(e) { showToast('Não foi possível copiar.'); } t.remove(); }
+    function ouvirResposta() {
+      const text = $('answerText').textContent;
+      if (!text || !('speechSynthesis' in window)) { showToast('Leitura em voz alta indisponível neste navegador.'); return; }
+      window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = 'pt-BR'; u.rate = 1; window.speechSynthesis.speak(u);
+    }
+
+    function abrirAdminModal() {
+      $('adminModal').classList.add('open'); $('adminLoginPanel').classList.remove('hidden'); $('adminDashboardPanel').classList.add('hidden'); $('adminPin').value = ''; $('adminLoginError').textContent = ''; $('adminPin').focus();
+    }
+    function fecharAdminModal() {
+      $('adminModal').classList.remove('open'); pararPollingAdmin();
+    }
+    function entrarAdmin() {
+      $('adminLoginError').textContent = '';
+      setLoading(true, 'Validando administração...', 'Verificando credencial administrativa.');
+      google.script.run.withSuccessHandler((res) => {
+        setLoading(false);
+        if (!res || !res.ok) { $('adminLoginError').textContent = (res && res.mensagem) || 'Acesso negado.'; return; }
+        adminToken = res.token; $('adminLoginPanel').classList.add('hidden'); $('adminDashboardPanel').classList.remove('hidden'); atualizarPainelAdmin();
+        pararPollingAdmin(); pollingAdmin = setInterval(atualizarPainelAdmin, 15000);
+      }).withFailureHandler((err) => { setLoading(false); $('adminLoginError').textContent = 'Falha ao validar o acesso.'; console.error(err); }).apiLoginAdministrador($('adminPin').value);
+    }
+    function atualizarPainelAdmin() {
+      if (!adminToken) return;
+      google.script.run.withSuccessHandler(renderPainelAdmin).withFailureHandler((err) => { console.error(err); $('adminDashboardError').textContent = 'Não foi possível atualizar os registros.'; $('adminDashboardError').classList.add('show'); }).apiAdminPainel(adminToken);
+    }
+    function renderPainelAdmin(data) {
+      if (!data || !data.ok) { $('adminDashboardError').textContent = (data && data.mensagem) || 'Sessão expirada.'; $('adminDashboardError').classList.add('show'); sairAdmin(); return; }
+      $('adminDashboardError').classList.remove('show');
+      $('kpiActive').textContent = data.escolasAtivas || 0; $('kpiQuestions').textContent = data.totalPerguntas || 0; $('kpiSchools').textContent = (data.escolas || []).length;
+      $('platformToggle').checked = !!data.enabled; $('platformStatusLabel').textContent = data.enabled ? 'Plataforma ativa' : 'Plataforma encerrada';
+      $('closureMessage').value = data.mensagemEncerramento || '';
+      $('adminUpdated').textContent = 'Atualizado: ' + (data.atualizadoEm || '');
+      const tbody = $('schoolStatsBody'); tbody.innerHTML = '';
+      (data.escolas || []).forEach((s) => {
+        const tr = document.createElement('tr');
+        [s.escola, s.pin].forEach((val) => { const td=document.createElement('td'); td.textContent=val || '—'; tr.appendChild(td); });
+        const tdStatus = document.createElement('td'); const badge=document.createElement('span'); badge.className='pill '+(s.ativa?'on':'off'); badge.textContent=s.ativa?'ACESSANDO':'INATIVA'; tdStatus.appendChild(badge); tr.appendChild(tdStatus);
+        [s.perguntas, s.ultimoAcesso].forEach((val) => { const td=document.createElement('td'); td.textContent=String(val == null?'—':val); tr.appendChild(td); });
+        tbody.appendChild(tr);
+      });
+      const logs = $('adminLogs'); logs.innerHTML = '';
+      (data.logs || []).forEach((l) => {
+        const card=document.createElement('div'); card.className='admin-log';
+        const title=document.createElement('strong'); title.textContent=(l.acao || 'EVENTO')+' · '+(l.escola || '—')+' ('+(l.pin || '—')+')';
+        const p=document.createElement('p'); p.textContent=(l.pergunta ? 'Pergunta: '+l.pergunta+' · ' : '')+(l.resposta || '');
+        const small=document.createElement('small'); small.textContent=(l.data || '')+' · '+(l.resultado || '')+(l.modelo?' · '+l.modelo:'');
+        card.append(title,p,small); logs.appendChild(card);
+      });
+      if (!data.logs || !data.logs.length) { const p=document.createElement('p'); p.className='small muted'; p.textContent='Ainda não há eventos registrados.'; logs.appendChild(p); }
+    }
+    function salvarControleAdmin() {
+      $('savePlatformBtn').disabled = true;
+      google.script.run.withSuccessHandler((res) => {
+        $('savePlatformBtn').disabled = false;
+        if (!res || !res.ok) { showToast((res && res.mensagem) || 'Não foi possível salvar.'); return; }
+        estado.enabled = !!res.enabled; estado.mensagemEncerramento = res.mensagem || '';
+        if (estado.enabled) renderEstadoInicial(); else mostrarEncerramento(estado.mensagemEncerramento);
+        showToast(res.enabled ? 'Plataforma ativada.' : 'Plataforma encerrada para as equipes.'); atualizarPainelAdmin();
+      }).withFailureHandler((err) => { $('savePlatformBtn').disabled = false; showToast('Falha ao salvar o controle.'); console.error(err); }).apiAdminDefinirPlataforma(adminToken, $('platformToggle').checked, $('closureMessage').value);
+    }
+    function sairAdmin() { const old=adminToken; adminToken=''; pararPollingAdmin(); $('adminModal').classList.remove('open'); if(old) google.script.run.apiLogoutAdministrador(old); }
+    function pararPollingAdmin() { if (pollingAdmin) clearInterval(pollingAdmin); pollingAdmin=null; }
+
+    function atualizarContador() { $('charCount').textContent = $('questionInput').value.length + ' / 1800'; }
+    function mostrarErroApp(message) { $('appError').textContent = message; $('appError').classList.add('show'); }
+    function setLoading(show, title, subtitle) { $('loadingTitle').textContent=title || 'Aguarde...'; $('loadingSubtitle').textContent=subtitle || ''; $('loading').classList.toggle('show', !!show); }
+    let toastTimer=null;
+    function showToast(message) { const el=$('toast'); el.textContent=message; el.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),2800); }
+  </script>
+</body>
+</html>

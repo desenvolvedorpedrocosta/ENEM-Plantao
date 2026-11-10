@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">ENEM Plantão 2026</title>
+  <desc id="desc">Símbolo de documento com marca de verificação em tons de verde e azul.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16b5a4"/>
+      <stop offset="1" stop-color="#087c78"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <path d="M140 80h164l82 82v270H140z" fill="#fff"/>
+  <path d="M304 80v84h82" fill="#cdeee9"/>
+  <path d="M190 238h150M190 292h120" stroke="#138b80" stroke-width="25" stroke-linecap="round"/>
+  <path d="m196 370 43 38 91-101" fill="none" stroke="#e7ad4d" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

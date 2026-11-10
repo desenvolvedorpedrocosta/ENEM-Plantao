@@ -1,0 +1,16 @@
+{
+  "id": "./",
+  "name": "ENEM Plantão 2026",
+  "short_name": "ENEM Plantão",
+  "description": "Apoio rápido às equipes de aplicação do ENEM 2026.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f4f7fa",
+  "theme_color": "#10243a",
+  "icons": [
+    {"src":"./Logo-ENEM-Plantao-2026.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
