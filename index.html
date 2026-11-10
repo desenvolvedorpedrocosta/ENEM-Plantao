@@ -3,7 +3,8 @@
 <head>
   <base target="_top">
   <meta charset="UTF-8">
-  <!-- A metatag viewport é adicionada pelo doGet() via HtmlOutput.addMetaTag(). -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- Apps Script também adiciona viewport via HtmlOutput.addMetaTag() para manter compatibilidade. -->
   <meta name="theme-color" content="#10243a">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -172,6 +173,79 @@
       #loginView .welcome,#loginView .panel{padding:16px}
     }
 
+
+    /* Ajuste de altura: a tela de login ocupa o espaço livre, sem rolagem artificial.
+       Em telas baixas ou estreitas, o conteúdo continua podendo rolar naturalmente. */
+    body.login-mode{min-height:100svh;min-height:100dvh}
+    body.login-mode .main{flex:1 1 auto;min-height:0;padding-top:clamp(6px,1.2svh,14px);padding-bottom:clamp(6px,1svh,12px)}
+    body.login-mode #loginView{margin: auto;align-self:center;gap:clamp(10px,1.4vw,18px)}
+    body.login-mode .welcome{min-height:0;padding:clamp(18px,2.2vw,28px)}
+    body.login-mode .welcome h1{font-size:clamp(25px,2.5vw,32px);margin:10px 0}
+    body.login-mode .welcome p{line-height:1.45;margin:8px 0}
+    body.login-mode .welcome-points{gap:8px;margin-top:14px}
+    body.login-mode .welcome-foot{margin-top:14px;line-height:1.4}
+    body.login-mode .panel{padding:clamp(17px,2vw,25px)}
+    body.login-mode .login-brand{margin-bottom:12px}
+    body.login-mode .field{margin-top:13px}
+    body.login-mode .block{margin-top:14px}
+    body.login-mode .notice{margin-top:12px;padding:9px 11px}
+    body.login-mode .admin-shortcut{margin-top:12px}
+    body.login-mode .footer{padding:7px 10px 9px;line-height:1.35}
+    @media(min-width:761px){
+      body.login-mode #loginView{width:min(100%,1080px);max-width:1080px;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr)}
+    }
+    @media(max-width:760px){
+      body.login-mode .main{padding-top:10px;padding-bottom:max(10px,env(safe-area-inset-bottom))}
+      body.login-mode #loginView{grid-template-columns:minmax(0,1fr);margin:8px auto;gap:12px}
+      body.login-mode #loginView .welcome,body.login-mode #loginView .panel{height:auto}
+      body.login-mode .welcome{padding:18px}
+    }
+    @media(max-height:800px) and (min-width:761px){
+      body.login-mode .topbar{padding-top:8px;padding-bottom:8px}
+      body.login-mode .brand-mark{width:38px;height:38px;flex-basis:38px}
+      body.login-mode .main{padding-top:4px;padding-bottom:4px}
+      body.login-mode .login-brand{margin-bottom:6px}
+      body.login-mode .login-logo{width:42px;height:42px;flex-basis:42px}
+      body.login-mode .welcome{padding:14px}
+      body.login-mode .welcome h1{font-size:25px;margin:7px 0}
+      body.login-mode .welcome-points{gap:6px;margin-top:9px}
+      body.login-mode .welcome-foot{font-size:10px;margin-top:8px}
+      body.login-mode .panel{padding:12px}
+      body.login-mode .field{margin-top:8px}
+      body.login-mode .field label{margin-bottom:5px}
+      body.login-mode .control{padding:9px 11px;min-height:42px}
+      body.login-mode .block{margin-top:8px;padding-top:10px;padding-bottom:10px}
+      body.login-mode .notice{font-size:9px;line-height:1.35;margin-top:7px;padding:6px 8px}
+      body.login-mode .admin-shortcut{margin-top:6px}
+      body.login-mode .footer{padding-top:4px;padding-bottom:5px}
+    }
+    @media(max-width:720px){
+      body.login-mode .main{padding-top:5px;padding-bottom:max(6px,env(safe-area-inset-bottom))}
+      body.login-mode #loginView{margin:5px auto;gap:8px}
+      body.login-mode .welcome{padding:12px;gap:9px}
+      body.login-mode .welcome h1{font-size:clamp(21px,6vw,25px);margin:5px 0}
+      body.login-mode .welcome p{font-size:10px;line-height:1.35;margin:5px 0}
+      body.login-mode .welcome-points{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px}
+      body.login-mode .point{font-size:9px;line-height:1.25;gap:6px}
+      body.login-mode .point-icon{width:22px;height:22px;min-width:22px;border-radius:7px}
+      body.login-mode .welcome-foot{font-size:8px;line-height:1.3;margin-top:5px}
+      body.login-mode .panel{padding:12px}
+      body.login-mode .login-brand{margin-bottom:6px;gap:8px}
+      body.login-mode .login-logo{width:40px;height:40px;flex-basis:40px}
+      body.login-mode .login-brand strong{font-size:14px}
+      body.login-mode .login-brand span{font-size:8px}
+      body.login-mode .panel h2{font-size:17px;margin-bottom:4px}
+      body.login-mode .panel p{font-size:10px;line-height:1.35;margin:5px 0}
+      body.login-mode .field{margin-top:8px}
+      body.login-mode .field label{font-size:10px;margin-bottom:5px}
+      body.login-mode .control{min-height:42px;padding:9px 10px;font-size:16px}
+      body.login-mode .pin-control{font-size:19px;letter-spacing:8px}
+      body.login-mode .block{margin-top:8px;min-height:42px;padding:10px 12px}
+      body.login-mode .notice{font-size:9px;line-height:1.35;margin-top:7px;padding:6px 8px}
+      body.login-mode .admin-shortcut{font-size:10px;margin-top:6px}
+      body.login-mode .footer{font-size:8px;line-height:1.2;padding-top:2px;padding-bottom:3px}
+    }
+
   </style>
 </head>
 <body>
@@ -231,6 +305,7 @@
         <div class="field">
           <label for="schoolSelect">ESCOLA / LOCAL DE APLICAÇÃO</label>
           <select id="schoolSelect" class="control"><option value="">Carregando escolas...</option></select>
+          <button id="retrySchoolsBtn" class="subtle-btn" type="button" hidden style="margin-top:8px">Tentar carregar novamente</button>
         </div>
         <div class="field">
           <label for="schoolPin">PIN DE ACESSO</label>
@@ -356,35 +431,70 @@
   <script>
     // GitHub Pages: informe abaixo a URL /exec da implantação do Apps Script.
     const API_URL = (window.ENEM_API_URL || 'COLE_AQUI_A_URL_EXEC_DO_APPS_SCRIPT').trim();
-    // Ponte JSONP: permite chamar o Apps Script sem CORS e sem google.script.run.
+    // Ponte híbrida: usa google.script.run nativo dentro do Apps Script e JSONP no GitHub Pages.
     (function instalarPonteAppsScript(){
-      let success = null, failure = null;
-      function proxy(ok, fail){
+      const runnerNativo = window.google && window.google.script && window.google.script.run;
+      if (runnerNativo) return; // Não sobrescreve a API nativa do HtmlService.
+
+      function proxy(ok, failure){
         return new Proxy({}, { get(_target, prop){
-          if(prop === 'withSuccessHandler') return fn => proxy(fn, fail);
+          if(prop === 'withSuccessHandler') return fn => proxy(fn, failure);
           if(prop === 'withFailureHandler') return fn => proxy(ok, fn);
-          if(prop === 'withUserObject') return () => proxy(ok, fail);
+          if(prop === 'withUserObject') return () => proxy(ok, failure);
           if(typeof prop !== 'string') return undefined;
-          return (...args) => chamarApiJsonp(prop, args, ok, fail);
+          return (...args) => chamarApiJsonp(prop, args, ok, failure);
         }});
       }
-      function chamarApiJsonp(method,args,ok,fail){
-        if(!API_URL || API_URL.indexOf('/exec') < 0 || API_URL.indexOf('COLE_AQUI') >= 0){
-          const err = new Error('Configure API_URL no início do Index.html com a URL /exec do Apps Script.');
-          if(fail) fail(err); else console.error(err); return;
+
+      function chamarApiJsonp(method, args, ok, failure){
+        const endpoint = String(API_URL || '').trim();
+        if(!/^https:\/\/.+\/exec(?:[?#].*)?$/.test(endpoint) || endpoint.indexOf('COLE_AQUI') >= 0){
+          const err = new Error('Configure config.js com a URL publicada do Apps Script terminada em /exec.');
+          if(failure) failure(err); else console.error(err);
+          return;
         }
+
         const callback = '__enemJsonp_' + Date.now() + '_' + Math.floor(Math.random()*1000000);
         const script = document.createElement('script');
-        const cleanup = () => { try{delete window[callback];}catch(e){window[callback]=undefined;} script.remove(); };
-        const timer = setTimeout(() => { cleanup(); if(fail) fail(new Error('Tempo esgotado ao comunicar com o Apps Script.')); }, 45000);
-        window[callback] = data => { clearTimeout(timer); cleanup(); if(data && data.erroServidor){ if(fail) fail(new Error(data.mensagem || 'Erro no servidor.')); else console.error(data); } else if(ok) ok(data); };
-        script.onerror = () => { clearTimeout(timer); cleanup(); if(fail) fail(new Error('Não foi possível carregar a resposta do Apps Script. Confira a implantação e a URL /exec.')); };
-        const query = '?api=' + encodeURIComponent(method) + '&callback=' + encodeURIComponent(callback) + '&args=' + encodeURIComponent(JSON.stringify(args));
-        script.src = API_URL + (API_URL.indexOf('?') >= 0 ? '&' : '') + query.substring(1);
+        let finished = false;
+        const cleanup = () => {
+          if (finished) return;
+          finished = true;
+          clearTimeout(timer);
+          try { delete window[callback]; } catch(e) { window[callback] = undefined; }
+          script.remove();
+        };
+        const timer = setTimeout(() => {
+          cleanup();
+          if(failure) failure(new Error('Tempo esgotado ao comunicar com o Apps Script. Verifique a implantação /exec.'));
+        }, 20000);
+
+        window[callback] = data => {
+          cleanup();
+          if(data && data.erroServidor){
+            const err = new Error(data.mensagem || 'O Apps Script retornou um erro.');
+            if(failure) failure(err); else console.error(err);
+          } else if(ok) ok(data);
+        };
+        script.onerror = () => {
+          cleanup();
+          if(failure) failure(new Error('Não foi possível acessar a API do Apps Script. Confira a URL /exec e as permissões da implantação.'));
+        };
+
+        const params = 'api=' + encodeURIComponent(method)
+          + '&callback=' + encodeURIComponent(callback)
+          + '&args=' + encodeURIComponent(JSON.stringify(args));
+        // A URL /exec normalmente termina sem query. Nesse caso, o separador correto é '?'.
+        script.src = endpoint + (endpoint.indexOf('?') >= 0 ? '&' : '?') + params;
         document.head.appendChild(script);
       }
-      window.google = window.google || {}; window.google.script = window.google.script || {};
-      Object.defineProperty(window.google.script, 'run', { configurable:true, get(){return proxy(null,null);} });
+
+      window.google = window.google || {};
+      window.google.script = window.google.script || {};
+      Object.defineProperty(window.google.script, 'run', {
+        configurable: true,
+        get: () => proxy(null, null)
+      });
     })();
     const HISTORY_LIMIT = 12;
     const $ = (id) => document.getElementById(id);
@@ -402,6 +512,7 @@
     document.addEventListener('DOMContentLoaded', iniciar);
 
     function iniciar() {
+      document.body.classList.add('login-mode');
       const yearEl = $('footerYear');
       if (yearEl) yearEl.textContent = String(new Date().getFullYear());
       bindEvents();
@@ -412,15 +523,7 @@
         const src = img.dataset.src || '';
         if (src) img.src = src;
       });
-      google.script.run.withSuccessHandler((data) => {
-        estado = data || estado;
-        preencherEscolas(estado.escolas || []);
-        renderEstadoInicial();
-        tentarRestaurarSessao();
-      }).withFailureHandler((err) => {
-        showToast('Não foi possível carregar a plataforma. Atualize a página.');
-        console.error(err);
-      }).apiObterEstado();
+      carregarEscolasIniciais();
       configurarReconhecimentoVoz();
       if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register('./sw.js').catch(err => console.warn('PWA offline indisponível:', err));
     }
@@ -444,6 +547,7 @@
       $('qrModal').addEventListener('click', e => { if(e.target === $('qrModal')) $('qrModal').classList.remove('open'); });
       $('copyAccessLink').addEventListener('click', copiarLinkAcesso);
       $('schoolPin').addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 2); });
+      $('retrySchoolsBtn').addEventListener('click', carregarEscolasIniciais);
       $('schoolPin').addEventListener('keydown', (e) => { if (e.key === 'Enter') entrarEscola(); });
       $('adminShortcut').addEventListener('click', abrirAdminModal);
       $('adminShortcutClosed').addEventListener('click', abrirAdminModal);
@@ -467,15 +571,64 @@
       $('adminModal').addEventListener('click', (e) => { if (e.target === $('adminModal')) fecharAdminModal(); });
     }
 
+    function carregarEscolasIniciais() {
+      const select = $('schoolSelect');
+      const loginButton = $('loginBtn');
+      select.disabled = true;
+      loginButton.disabled = true;
+      $('retrySchoolsBtn').hidden = true;
+      $('loginError').textContent = '';
+      select.innerHTML = '<option value="">Carregando escolas...</option>';
+
+      google.script.run
+        .withSuccessHandler((data) => {
+          if (!data || data.ok !== true || !Array.isArray(data.escolas) || data.escolas.length === 0) {
+            falhaCarregamentoEscolas(new Error('A API respondeu sem uma lista válida de escolas.'));
+            return;
+          }
+          estado = {
+            nomeApp: data.nomeApp || 'ENEM Plantão 2026',
+            enabled: data.enabled !== false,
+            mensagemEncerramento: data.mensagemEncerramento || '',
+            escolas: data.escolas
+          };
+          preencherEscolas(estado.escolas);
+          renderEstadoInicial();
+          tentarRestaurarSessao();
+        })
+        .withFailureHandler(falhaCarregamentoEscolas)
+        .apiListarEscolas();
+    }
+
+    function falhaCarregamentoEscolas(err) {
+      const select = $('schoolSelect');
+      select.disabled = true;
+      $('loginBtn').disabled = true;
+      select.innerHTML = '<option value="">Não foi possível carregar as escolas</option>';
+      $('retrySchoolsBtn').hidden = false;
+      $('loginError').textContent = 'Falha ao buscar a lista de escolas. Confira a conexão e tente novamente.';
+      console.error('Falha em apiListarEscolas:', err);
+    }
+
     function preencherEscolas(escolas) {
       const select = $('schoolSelect');
       select.innerHTML = '<option value="">Selecione sua escola...</option>';
-      escolas.forEach((e) => {
+      (Array.isArray(escolas) ? escolas : []).forEach((e) => {
+        if (!e || !/^\d{2}$/.test(String(e.pin || '')) || !e.nome) return;
         const opt = document.createElement('option');
-        opt.value = e.pin;
-        opt.textContent = e.pin + ' — ' + e.nome;
+        opt.value = String(e.pin);
+        opt.textContent = String(e.pin) + ' — ' + String(e.nome);
         select.appendChild(opt);
       });
+      const carregou = select.options.length > 1;
+      select.disabled = !carregou;
+      $('loginBtn').disabled = !carregou;
+      $('retrySchoolsBtn').hidden = carregou;
+      if (!carregou) {
+        select.innerHTML = '<option value="">Nenhuma escola foi retornada</option>';
+        $('loginError').textContent = 'A lista de escolas está vazia. Tente carregar novamente.';
+        $('retrySchoolsBtn').hidden = false;
+      }
     }
 
     function renderEstadoInicial() {
@@ -484,6 +637,7 @@
     }
 
     function mostrarEncerramento(message) {
+      document.body.classList.remove('login-mode');
       pararHeartbeat();
       $('loginView').classList.add('hidden');
       $('appView').classList.add('hidden');
@@ -528,6 +682,7 @@
     }
 
     function mostrarApp() {
+      document.body.classList.remove('login-mode');
       $('loginView').classList.add('hidden'); $('closedView').classList.add('hidden'); $('appView').classList.remove('hidden');
       $('schoolNameLabel').textContent = escolaAtual;
       carregarHistorico(); renderHistorico();
@@ -541,7 +696,7 @@
       localStorage.removeItem('enemPlantao:session');
       pararHeartbeat();
       google.script.run.apiLogout(old);
-      $('appView').classList.add('hidden'); $('loginView').classList.remove('hidden'); $('schoolPin').value = '';
+      $('appView').classList.add('hidden'); $('loginView').classList.remove('hidden'); document.body.classList.add('login-mode'); $('schoolPin').value = '';
       $('answerCard').classList.remove('show');
     }
 
