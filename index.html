@@ -456,6 +456,10 @@
 
         const callback = '__enemJsonp_' + Date.now() + '_' + Math.floor(Math.random()*1000000);
         const script = document.createElement('script');
+        script.async = true;
+        // O Gemini pode levar mais que 20 s em consultas com PDF. O prazo maior
+        // vale somente para apiPerguntar; login, heartbeat e rotas leves mantêm prazo curto.
+        const timeoutMs = method === 'apiPerguntar' ? 180000 : 45000;
         let finished = false;
         const cleanup = () => {
           if (finished) return;
@@ -466,8 +470,10 @@
         };
         const timer = setTimeout(() => {
           cleanup();
-          if(failure) failure(new Error('Tempo esgotado ao comunicar com o Apps Script. Verifique a implantação /exec.'));
-        }, 20000);
+          if(failure) failure(new Error(method === 'apiPerguntar'
+            ? 'A consulta ultrapassou 3 minutos sem resposta do servidor. O Gemini pode ainda estar processando; aguarde um pouco antes de enviar novamente.'
+            : 'Tempo esgotado ao comunicar com o Apps Script. Verifique a implantação /exec.'));
+        }, timeoutMs);
 
         window[callback] = data => {
           cleanup();
